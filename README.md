@@ -1,0 +1,2 @@
+# PNETScore
+Executable petri network 
