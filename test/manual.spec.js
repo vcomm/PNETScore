@@ -112,9 +112,15 @@ service.attach({
 })
 
 setInterval(()=> {
-  console.log(`------------- Model Updated -------------: `) 
+  
   service.fireOn({owner: '#71ed58'})
   .then(trlst => {
-      console.log(`Fired: `, trlst) 
+    if (!Array.isArray(trlst.trans) || !trlst.trans.length) {
+      console.log(`------------- Model same style  -------------: `) 
+    } else {
+      console.log(`------------- Model Updated -------------: `) 
+      console.log(`Worked: `, trlst) 
+    }
   })  
+  
 },5000)

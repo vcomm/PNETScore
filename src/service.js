@@ -88,7 +88,8 @@ class pnetsService extends pnetsProcessor {
           //console.log(`Final Fired: ${JSON.stringify(step)}`) 
             const curr = super.getConditions()
             if (super.placesMarkers(step.trans)) {
-                console.log(`New Places` ,{curr: curr, step: step, new: super.getConditions()})
+              if (Array.isArray(step.trans) && step.trans.length)
+                  console.log(`New Places` ,{curr: curr, step: step, new: super.getConditions()})
             } else {
                 console.log(`Error` ,{curr: curr, error: 400})
             }
