@@ -3,6 +3,7 @@ const pnets = require('./pnets.data/example6.json')
 const { pnetsService } = require('../index')
 const { setTimeout } = require('timers')
 
+// ----------------------------
 let owner = '#71ed58'
 const serviceOwner = new pnetsService(pnets, owner)
 serviceOwner.initModel()
@@ -30,15 +31,15 @@ serviceOwner.attach({
       ]
     },
 })
-// --------------------------------
 
+// --------------------------------
 let guest = '#ed53eb'
 const serviceGuest = new pnetsService(pnets, guest)
 serviceGuest.initModel()
 serviceGuest.attach({
-    'T1': {
+    'T3': {
       funclst: [
-        (cntx) => console.log(`: Execute Owner[${cntx.owner}} Transition[T1]: `, cntx),
+        (cntx) => console.log(`: Execute Owner[${cntx.owner}} Transition[T3]: `, cntx),
         async (cntx) => {
             const promise = new Promise((resolve) => {
                 setTimeout(() => resolve(cntx), 3000)
@@ -48,14 +49,14 @@ serviceGuest.attach({
         }
       ]
     },
-    'T2': {
+    'T4': {
       funclst: [
-        (cntx) => console.log(`: Execute Owner[${cntx.owner}] Transition[T2]: `, cntx)
+        (cntx) => console.log(`: Execute Owner[${cntx.owner}] Transition[T4]: `, cntx)
       ]
     },
-    'T6': {
+    'T5': {
       funclst: [
-        (cntx) => console.log(`: Execute Owner[${cntx.owner}] Transition[T6]: `, cntx)
+        (cntx) => console.log(`: Execute Owner[${cntx.owner}] Transition[T5]: `, cntx)
       ]
     },
 })
@@ -63,33 +64,29 @@ serviceGuest.attach({
 // --------------------------------
 const trigger = new EventEmitter()
 trigger.on('event', () => {
-    console.log('Owner Fire');
-    serviceOwner.fireOn({owner: owner})
-    .then(trlst => {
-      if (!Array.isArray(trlst.trans) || !trlst.trans.length) {
-        console.log(`------------- Model same style  -------------: `) 
-      } else {
-        console.log(`------------- Model Updated -------------: `) 
-        console.log(`Worked: `, trlst) 
-      }
-      trigger.emit('complete');
-    }) 
+
+    let instances = [{service: serviceOwner, name: owner}, 
+                     {service: serviceGuest, name: guest}];
+    Promise.all(instances.map(async (instance) => {
+        await instance.service.fireOn({owner: instance.name})
+        .then(trlst => {
+          if (!Array.isArray(trlst.trans) || !trlst.trans.length) {
+            console.log(instance.name,`:------------- Model Still  -------------: `) 
+          } else {
+            console.log(instance.name,`:------------- Model Updated -------------: `) 
+            console.log(`Worked: `, trlst) 
+          }
+        })
+    }))
+        .then(() => {
+            console.log(`: Promise.all complete: `)
+            trigger.emit('complete');
+        });
 });
-trigger.on('event', () => {
-    console.log('Guest Fire');
-    serviceGuest.fireOn({owner: guest})
-    .then(trlst => {
-      if (!Array.isArray(trlst.trans) || !trlst.trans.length) {
-        console.log(`------------- Model same style  -------------: `) 
-      } else {
-        console.log(`------------- Model Updated -------------: `) 
-        console.log(`Worked: `, trlst) 
-      }
-      trigger.emit('complete');
-    })    
-});
+
+
 trigger.on('complete', () => {
-    setTimeout(() => trigger.emit('event'), 1000)
+    setTimeout(() => trigger.emit('event'), 3000)
 });
 
 trigger.emit('event');
