@@ -1,0 +1,20 @@
+{
+  "name": "@vcomm/storeshared",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "async-mutex": "^0.5.0"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
+  }
+}
