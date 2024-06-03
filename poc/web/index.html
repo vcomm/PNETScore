@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Petri Net Visualizer</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jointjs/3.4.2/joint.min.css">
+    <style>
+        fieldset {
+            width: 1380px;
+        }
+
+        #paper {
+            width: 100%;
+            height: 600px;
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <h1>Petri Net Visualizer</h1>
+    <fieldset>
+    <button id="downloadJson">Save JSON</button>
+    <input type="file" id="fileInput">
+
+    <button id="clearButton">Clear</button>
+    <button id="placeButton">+Place</button>
+    <button id="markerPlusButton">+Marker</button>
+    <button id="markerMinusButton">-Marker</button>
+    <button id="transButton">+Transition</button>
+    <button id="linkButton">+Link</button>
+    <button id="delButton">Delete</button>
+
+    <button id="executeButton">Execute</button>
+    <button id="stepButton">Step</button>
+    </fieldset>
+    <div id="paper"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.20/lodash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.4.0/backbone-min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jointjs/3.4.2/joint.min.js"></script>
+    <!--<script src="pn.js"></script>-->
+    <script type="module"  src="app.js"></script>
+</body>
+</html>

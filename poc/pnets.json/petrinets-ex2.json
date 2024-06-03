@@ -1,0 +1,77 @@
+{
+    "places": [
+        "P1",
+        "P2",
+        "P3"
+    ],
+    "transitions": [
+        "T1",
+        "T2",
+        "T3"
+    ],
+    "arcs": [
+        {
+            "source": "P1",
+            "target": "T1"
+        },
+        {
+            "source": "T1",
+            "target": "P2"
+        },
+        {
+            "source": "P2",
+            "target": "T3"
+        },
+        {
+            "source": "P2",
+            "target": "T2"
+        },
+        {
+            "source": "P3",
+            "target": "T2"
+        },
+        {
+            "source": "T3",
+            "target": "P3"
+        },
+        {
+            "source": "T2",
+            "target": "P1"
+        },
+        {
+            "source": "T2",
+            "target": "P1"
+        }
+    ],
+    "initialMarking": {
+        "P1": 2,
+        "P2": 0,
+        "P3": 0
+    },
+    "graph": {
+        "P1": {
+            "x": 310,
+            "y": 260
+        },
+        "P2": {
+            "x": 370,
+            "y": 140
+        },
+        "P3": {
+            "x": 570,
+            "y": 140
+        },
+        "T1": {
+            "x": 250,
+            "y": 140
+        },
+        "T2": {
+            "x": 490,
+            "y": 220
+        },
+        "T3": {
+            "x": 490,
+            "y": 60
+        }
+    }
+}
