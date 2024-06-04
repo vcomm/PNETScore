@@ -3,8 +3,10 @@
   "version": "1.0.1",
   "description": "Executable petri network",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "test": "node test/manual.spec"
+    "test": "jest",
+    "test-worker": "jest --findRelatedTests test/core/worker.test.js"
   },
   "repository": {
     "type": "git",
@@ -18,6 +20,12 @@
   },
   "homepage": "https://github.com/vcomm/PNETScore#readme",
   "dependencies": {
-    "@vcomm/asmcore": "^1.0.4"
+    "@vcomm/asmcore": "^1.0.4",
+    "@vcomm/mpi": "file:packages/mpi",
+    "async-mutex": "^0.5.0",
+    "ioredis": "^5.4.1"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
   }
 }
