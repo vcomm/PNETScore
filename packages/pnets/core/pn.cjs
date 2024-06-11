@@ -174,4 +174,8 @@ PetriNet.optimizeJSON = function(data) {
     return { places, transitions, incidenceMatrix, initialMarking };
 };
 
-export { PetriNet };
+if (typeof module !== 'undefined' && 
+    typeof module.exports !== 'undefined') {
+    module.exports = PetriNet;
+} 
+

@@ -1,4 +1,4 @@
-import { PetriNet } from '../../core/pn.js';
+//import PetriNet from 'pn.js';
 
 document.getElementById('fileInput').addEventListener('change', handleFileSelect, false);
 document.getElementById('downloadJson').addEventListener('click', downloadJSON);

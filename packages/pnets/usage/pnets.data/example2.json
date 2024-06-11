@@ -1,0 +1,23 @@
+{
+  "places": ["P1", "P2", "P3"],
+  "transitions": ["T1", "T2", "T3"],
+  "graph": {
+    "P1": {"x":305, "y":245},
+    "P2": {"x":323, "y":107},
+    "P3": {"x":510, "y":106},
+    "T1": {"x":217, "y":104},
+    "T2": {"x":409, "y":177}, 
+    "T3": {"x":416, "y":55 }
+  },
+  "arcs": [
+      {"source": "P1", "target": "T1", "weight": 1},
+      {"source": "T1", "target": "P2", "weight": 1},
+      {"source": "T3", "target": "P3", "weight": 1},
+      {"source": "P3", "target": "T2", "weight": 1},
+      {"source": "P2", "target": "T3", "weight": 1},
+      {"source": "P2", "target": "T2", "weight": 1},
+      {"source": "T2", "target": "P1", "weight": 1},
+      {"source": "T2", "target": "P1", "weight": 1}
+  ],
+  "initialMarking": {"P1": 2, "P2": 0, "P3": 0}
+}

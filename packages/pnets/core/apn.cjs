@@ -1,4 +1,4 @@
-import { PetriNet } from './pn.js';
+const PetriNet = require('./pn.mjs');
 
 class AdvancedPetriNet extends PetriNet {
     constructor(places, transitions, incidenceMatrix, initialMarking) {
@@ -91,8 +91,9 @@ class AdvancedPetriNet extends PetriNet {
 
         const simulateNet = (net) => {
             let steps = 0;
-            while (executeStep(net)) {
+            while (steps < maxSteps) {
                 steps++;
+                executeStep(net);
                 console.log(`Net: ${net.constructor.name}, Step: ${steps}`);
             }
         };
@@ -100,7 +101,7 @@ class AdvancedPetriNet extends PetriNet {
         // Симуляция иерархической сети
         const simulateHierarchicalStep = () => {
             let parentEnabled = parentNet.determineEnabledTransitions();
-
+            
             // Если текущий переход вложенной сети готов к выполнению
             if (parentEnabled[transitionIndex]) {
                 simulateNet(subNet);
@@ -122,4 +123,7 @@ class AdvancedPetriNet extends PetriNet {
     }
 }
 
-export { AdvancedPetriNet };
+if (typeof module !== 'undefined' && 
+    typeof module.exports !== 'undefined') {
+    module.exports = AdvancedPetriNet;
+}
