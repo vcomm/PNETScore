@@ -170,9 +170,17 @@ function drawPetriNet(data) {
         const linkElement = new joint.shapes.pn.Link({
             source: { id: source.id },
             target: { id: target.id },
+            /*
             attrs: { '.connection': { 'stroke-width': arc.weight } },
             attrs: { '.label': { text: linkName }, '.root': { stroke: '#000' } }
+            */
+            attrs: {
+                '.connection': { 'stroke-width': arc.weight },
+                '.root': { stroke: '#000' }
+            }
         });
+        // Добавляем метку к соединению
+        linkElement.appendLabel({ attrs: { text: { text: arc.weight } }} );
         graph.addCell(linkElement);
         //linkElements[`${source.id},${target.id}`] = linkElement;
         linkElements.push(linkElement);
@@ -232,6 +240,14 @@ function updateMarking(marking) {
 }
 
 function updateEnabledTransitions(transFiring) {
+
+    console.log(`ready2Fire:`, petriNet.enabledTransitions.reduce((acc, value, index) => {
+        if (value === true) {
+          acc.push(index);
+        }
+        return acc;
+      }, []));
+      
     const trans = graph.getCells().filter(cell => cell instanceof joint.shapes.pn.Transition);
     trans.forEach((tran, index) => {
         const ready2Fire = transFiring[index];
@@ -279,10 +295,10 @@ function addTransition() {
 }
 
 function addLink() {
-    const input = prompt('Enter source & target names, separated by comma', 'P,T');
+    const input = prompt('Enter source & target names, separated by comma', 'P,T,1');
     if (!input) return; 
 
-    const [sourceName, targetName] = input.split(',').map(param => param.trim());
+    const [sourceName, targetName, weight] = input.split(',').map(param => param.trim());
     const source = placeElements[sourceName] || transitionElements[sourceName];
     const target = placeElements[targetName] || transitionElements[targetName];
     if (!source || !target) return;
@@ -290,8 +306,13 @@ function addLink() {
     const linkElement = new joint.shapes.pn.Link({
         source: { id: source.id },
         target: { id: target.id },
-        attrs: { '.label': { text: input }, '.root': { stroke: '#000' } }
+        //attrs: { '.label': { text: input }, '.root': { stroke: '#000' } }
+        attrs: {
+            '.connection': { 'stroke-width': weight },
+            '.root': { stroke: '#000' }
+        }
     });
+    linkElement.appendLabel({ attrs: { text: { text: weight } }} );
     graph.addCell(linkElement);
     //linkElements[`${source.id},${target.id}`] = linkElement;
     linkElements.push(linkElement);
